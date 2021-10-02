@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://BlackHole/BlackHole.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.0578231, 0.489796, 1 )
+colors = PoolColorArray( 1, 0.609375, 0, 1, 1, 0.897056, 0.736462, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 48.0
+flag_disable_z = true
+initial_velocity = 42.0
+orbit_velocity = 1.0
+orbit_velocity_random = 0.0
+scale = 4.0
+scale_random = 0.5
+color_ramp = SubResource( 3 )
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// Source: https://godotengine.org/qa/60139/how-to-make-black-hole-effect-in-2d
+
+uniform float strength = 0.01;
+uniform float black_radius = 0.65;
+
+void fragment() {
+    // Get direction and distance to the black hole center
+    vec2 diff = vec2(0.5, 0.5) - vec2(UV.x, 1.0-UV.y);
+    float d = length(diff) * 2.0;
+    vec2 dir = normalize(diff);
+    float f = clamp(1.0-d, 0.0, 1.0);
+
+    // This is a 0..1 value that will nullify the effect around the bounds of the effect,
+    // for a seamless transition between the effect's area and the unaffected world pixels.
+    float shelf = smoothstep(0, 1, f);
+    // Calculate displacement amount
+    float displacement = strength / (d*d + 0.01);
+
+    // Calculate distorted screen-space texture coordinates
+    vec2 uv = SCREEN_UV + dir * (displacement * shelf);
+
+    // Output pixels from the screen using distorted UVs
+    vec3 col = texture(SCREEN_TEXTURE, uv).xyz;
+    COLOR.rgb = mix(col, vec3(0,0,0), smoothstep(black_radius-0.01, black_radius+0.01, f));
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 1 )
+shader_param/strength = 0.05
+shader_param/black_radius = 0.65
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 40.0
+
+[node name="BlackHole" type="Node2D" groups=[
+"black_holes",
+]]
+script = ExtResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 3.05176e-05, 0 )
+process_material = SubResource( 4 )
+
+[node name="Image" type="ColorRect" parent="."]
+material = SubResource( 5 )
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 256, 256 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GrowTimer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 6 )
+
+[connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

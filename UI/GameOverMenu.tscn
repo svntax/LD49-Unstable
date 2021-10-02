@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/GameOverMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/ButtonFlatBlue.tres" type="StyleBox" id=2]
+[ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "display"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Score:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BackButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="GameOverMenu" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -768.0
+margin_bottom = -301.0
+rect_min_size = Vector2( 256, 275 )
+theme = SubResource( 5 )
+custom_constants/separation = 32
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="."]
+margin_right = 256.0
+margin_bottom = 48.0
+size_flags_vertical = 1
+text = "Game Over"
+align = 1
+
+[node name="Score" type="Label" parent="."]
+margin_top = 80.0
+margin_right = 256.0
+margin_bottom = 179.0
+size_flags_vertical = 1
+text = "Your score:
+12345"
+align = 1
+
+[node name="BackButton" type="Button" parent="."]
+margin_top = 211.0
+margin_right = 256.0
+margin_bottom = 275.0
+rect_min_size = Vector2( 256, 64 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+text = "Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/display = SubResource( 6 )
+
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
