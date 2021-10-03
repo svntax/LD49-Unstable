@@ -1,6 +1,8 @@
-extends Node2D
+extends KinematicBody2D
+class_name Star
 
 const GROW_RATE = 0.01
+const DRAIN_RATE = 0.05
 
 onready var black_hole_scene = load("res://BlackHole/BlackHole.tscn")
 
@@ -12,8 +14,8 @@ onready var rumbling = false
 onready var original_pos = $Sun.position
 
 func _ready():
-	#scale = Vector2(0.5, 0.5)
-	scale = Vector2(1.05, 1.05) # TODO balance numbers
+	scale = Vector2(1.0, 1.0)
+	#scale = Vector2(0.5, 0.5) # TODO balance numbers
 	grow_timer.start()
 
 func _physics_process(delta):
@@ -25,6 +27,10 @@ func _physics_process(delta):
 		get_parent().add_child(black_hole)
 		black_hole.position = position
 		queue_free()
+
+func drain_energy(delta) -> void:
+	scale.x += DRAIN_RATE * delta
+	scale.y += DRAIN_RATE * delta
 
 func _on_GrowTimer_timeout():
 	if scale.x >= 1 and scale.y >= 1:

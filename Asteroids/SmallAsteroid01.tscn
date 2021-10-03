@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Asteroids/small_asteroid_01.png" type="Texture" id=1]
+[ext_resource path="res://Asteroids/Asteroid.tscn" type="PackedScene" id=2]
+
+[node name="SmallAsteroid01" instance=ExtResource( 2 )]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+texture = ExtResource( 1 )
+
+[node name="Outline" parent="UI" index="0"]
+margin_left = -19.0
+margin_top = -4.0
+margin_right = 19.0
+margin_bottom = 3.0
+
+[node name="HealthBar" parent="UI" index="1"]
+margin_left = -17.0
+margin_top = -2.0
+margin_right = 17.0
+margin_bottom = 1.0
+max_value = 40.0
+value = 20.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+polygon = PoolVector2Array( -10.3372, -31.5026, -3.65548, -31.5026, 18.7283, -23.1504, 31.0896, 2.79702, 31.0896, 5.58108, 23.1828, 31.0831, 13.0489, 30.8603, -13.2326, 25.849, -21.5848, 8.92195, -31.0506, 0.124331, -30.9392, -18.4732 )

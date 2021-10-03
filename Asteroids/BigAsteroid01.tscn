@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Asteroids/Asteroid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Asteroids/big_asteroid_01.png" type="Texture" id=2]
+
+[node name="BigAsteroid01" instance=ExtResource( 1 )]
+score_value = 100
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( -38.5759, -91.986, 49.7944, -85.6148, 74.689, -36.8873, 74.925, -33.1118, 62.0647, -8.33506, 72.6833, 17.1495, 73.0373, 22.5768, 80.7063, 53.2527, 80.7063, 59.6239, 67.979, 84.3873, 28.5568, 94.4099, 22.2091, 94.4099, -6.18825, 84.7214, -24.3403, 84.61, -56.3013, 86.1691, -75.4556, 44.0741, -69.6647, 27.3698, -69.6647, 23.8062, -81.3577, 16.2335, -85.3668, 2.20187, -85.3668, -1.91853, -69.5533, -23.3001, -69.3306, -43.1226, -69.9988, -63.6133, -56.0785, -82.6562 )

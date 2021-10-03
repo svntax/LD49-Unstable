@@ -9,7 +9,7 @@
 size = 64
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 48
 font_data = ExtResource( 2 )
 
@@ -51,7 +51,7 @@ custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -67,7 +67,7 @@ custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false

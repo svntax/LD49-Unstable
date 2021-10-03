@@ -2,14 +2,14 @@
 
 [ext_resource path="res://BlackHole/BlackHole.gd" type="Script" id=1]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0578231, 0.489796, 1 )
 colors = PoolColorArray( 1, 0.609375, 0, 1, 1, 0.897056, 0.736462, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
 emission_sphere_radius = 48.0
 flag_disable_z = true
@@ -18,9 +18,9 @@ orbit_velocity = 1.0
 orbit_velocity_random = 0.0
 scale = 4.0
 scale_random = 0.5
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
 
 // Source: https://godotengine.org/qa/60139/how-to-make-black-hole-effect-in-2d
@@ -50,12 +50,12 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 1 )
+shader = SubResource( 4 )
 shader_param/strength = 0.05
 shader_param/black_radius = 0.65
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 40.0
+radius = 38.0
 
 [node name="BlackHole" type="Node2D" groups=[
 "black_holes",
@@ -64,7 +64,7 @@ script = ExtResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 position = Vector2( 3.05176e-05, 0 )
-process_material = SubResource( 4 )
+process_material = SubResource( 3 )
 
 [node name="Image" type="ColorRect" parent="."]
 material = SubResource( 5 )
@@ -86,3 +86,4 @@ shape = SubResource( 6 )
 
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
