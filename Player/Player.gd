@@ -1,6 +1,6 @@
 extends Area2D
 
-enum States {NORMAL, DEAD}
+enum States {NORMAL, DEAD, FINISHED}
 onready var state = States.NORMAL
 
 const MAX_SPEED = 360
@@ -10,6 +10,7 @@ const SLOW_DOWN_RATE = 2
 const REFUEL_RATE = 20 # units / second
 const FUEL_LOSS_RATE = 2 # units / second
 
+signal escaped()
 signal died()
 
 onready var fuel_bar = $UI/FuelBar
@@ -93,6 +94,12 @@ func die() -> void:
 
 func consume() -> void:
 	die()
+
+func leave_level() -> void:
+	state = States.FINISHED
+	# TODO: warp out animation
+	hide()
+	emit_signal("escaped")
 
 func _on_Player_body_entered(body):
 	if body is Asteroid:
