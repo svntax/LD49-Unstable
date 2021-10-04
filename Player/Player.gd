@@ -105,5 +105,5 @@ func leave_level() -> void:
 	emit_signal("escaped")
 
 func _on_Player_body_entered(body):
-	if body is Asteroid:
+	if body is Asteroid or body is Planet:
 		die()

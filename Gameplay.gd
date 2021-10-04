@@ -11,6 +11,7 @@ const SMALL_ASTEROIDS = [
 const OUTER_BELT_RADIUS = 4500
 const MIDDLE_BELT_RADIUS = 3000
 const INNER_BELT_RADIUS = 1200
+const OUTER_PLANET_RADIUS = 5450
 
 onready var game_win_menu = $UI/CenterContainer/GameWinMenu
 onready var game_over_menu = $UI/CenterContainer/GameOverMenu
@@ -20,6 +21,8 @@ onready var text_animation_player = $TextAnimationPlayer
 onready var score_label = $UI/ScoreLabel
 onready var player = $Player
 onready var warp_point = $WarpPoint
+onready var planet_01 = $Planet
+onready var planet_02 = $Planet2
 onready var warning_label = $UI/Warning
 
 onready var score = 0
@@ -32,18 +35,26 @@ func _ready():
 	warning_label.hide()
 	set_score(0)
 	randomize_player_spawn()
+	randomize_planet_spawns()
 	generate_asteroid_belt()
 
 # Spawn next to the middle asteroid belt at a random angle
-func randomize_player_spawn():
+func randomize_player_spawn() -> void:
 	var angle = rand_range(0, 360)
 	var radius = MIDDLE_BELT_RADIUS - 400
 	var spawn_pos = Vector2(radius, 0).rotated(deg2rad(angle))
 	player.global_position = spawn_pos
 	warp_point.global_position = spawn_pos
 
+func randomize_planet_spawns() -> void:
+	var angle = rand_range(0, 360)
+	var radius = OUTER_PLANET_RADIUS
+	var spawn_pos = Vector2(radius, 0).rotated(deg2rad(angle))
+	planet_01.global_position = spawn_pos
+	planet_02.global_position = spawn_pos.rotated(deg2rad(180))
+
 # Asteroid belt is made up of small asteroids and a few big asteroids
-func generate_asteroid_belt():
+func generate_asteroid_belt() -> void:
 	# Middle belt
 	for i in range(0, 360, 9):
 		for j in range(3):
