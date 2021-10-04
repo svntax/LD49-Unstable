@@ -45,3 +45,7 @@ func _on_ShakeTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.has_method("consume"):
 		area.consume()
+
+func _on_Area2D_body_entered(body):
+	if body.has_method("consume"):
+		body.consume()

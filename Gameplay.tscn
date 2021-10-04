@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://blue.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Player/WarpPoint.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/GameWinMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Minimap.gd" type="Script" id=12]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -80,10 +81,10 @@ __meta__ = {
 }
 
 [node name="WarpPoint" parent="." instance=ExtResource( 9 )]
-position = Vector2( 808, 256 )
+position = Vector2( 544, -136 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 808, 256 )
+position = Vector2( 544, -136 )
 
 [node name="Star" parent="." instance=ExtResource( 3 )]
 
@@ -133,8 +134,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Node2D" type="Node2D" parent="UI"]
-position = Vector2( 824, 32 )
+[node name="Minimap" type="Node2D" parent="UI"]
+position = Vector2( 928, 88 )
+script = ExtResource( 12 )
+player_path = NodePath("../../Player")
+exit_warp_path = NodePath("../../WarpPoint")
+star_path = NodePath("../../Star")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/game_over = SubResource( 3 )
