@@ -5,7 +5,9 @@ const BIG_ASTEROIDS = [
 ]
 
 const SMALL_ASTEROIDS = [
-	preload("res://Asteroids/SmallAsteroid01.tscn")
+	preload("res://Asteroids/SmallAsteroid01.tscn"),
+	preload("res://Asteroids/SmallAsteroid02.tscn"),
+	preload("res://Asteroids/SmallAsteroid03.tscn")
 ]
 
 const OUTER_BELT_RADIUS = 4500
