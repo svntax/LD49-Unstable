@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/ButtonFlatBlue.tres" type="StyleBox" id=1]
+[ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="PauseMenu" type="VBoxContainer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -768.0
+margin_bottom = -357.0
+theme = SubResource( 2 )
+custom_constants/separation = 32
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="."]
+margin_right = 256.0
+margin_bottom = 48.0
+size_flags_vertical = 1
+text = "Paused"
+align = 1
+
+[node name="ContinueButton" type="Button" parent="."]
+margin_top = 80.0
+margin_right = 256.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 256, 64 )
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="Button" parent="."]
+margin_top = 176.0
+margin_right = 256.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 256, 64 )
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
