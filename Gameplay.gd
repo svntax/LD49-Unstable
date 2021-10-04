@@ -27,11 +27,16 @@ onready var planet_01 = $Planet
 onready var planet_02 = $Planet2
 onready var warning_label = $UI/Warning
 onready var star_explode_sound = $StarExplodeSound
+onready var gameplay_theme = $GameplayTheme
+onready var black_hole_theme = $BlackHoleTheme
+onready var alarm_sound = $AlarmSound
+onready var volume_tween = $VolumeTween
 
 onready var score = 0
 
 func _ready():
 	randomize()
+	gameplay_theme.play()
 	game_win_menu.hide()
 	game_over_menu.hide()
 	pause_menu.hide()
@@ -134,8 +139,15 @@ func _on_Player_escaped():
 func _on_Star_unstable():
 	warning_label.show()
 	text_animation_player.play("warning")
+	alarm_sound.play()
 
 func _on_Star_exploded():
 	star_explode_sound.play()
 	text_animation_player.queue("black_hole_warning")
 	warning_label.set_text("A BLACK HOLE HAS FORMED!")
+	volume_tween.interpolate_property(gameplay_theme, "volume_db", 0, -80, 2)
+	volume_tween.start()
+
+func _on_VolumeTween_tween_all_completed():
+	black_hole_theme.play()
+	gameplay_theme.stop()

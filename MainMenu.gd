@@ -1,6 +1,7 @@
 extends Node2D
 
 func _ready():
+	$TitleTheme.play()
 	Globals.score = 0
 	Globals.load_data()
 	if Globals.high_score > 0:
