@@ -4,6 +4,9 @@ class_name Star
 const GROW_RATE = 0.005
 const DRAIN_RATE = 0.04
 
+signal unstable()
+signal exploded()
+
 onready var black_hole_scene = load("res://BlackHole/BlackHole.tscn")
 
 onready var grow_timer = $GrowTimer
@@ -25,6 +28,7 @@ func _physics_process(delta):
 		var black_hole = black_hole_scene.instance()
 		get_parent().add_child(black_hole)
 		black_hole.position = position
+		emit_signal("exploded")
 		queue_free()
 
 func drain_energy(delta) -> void:
@@ -35,6 +39,7 @@ func _on_GrowTimer_timeout():
 	if scale.x >= 1.5 and scale.y >= 1.5:
 		grow_timer.stop()
 		rumbling = true
+		emit_signal("unstable")
 		animation_player.play("flashing")
 		shake_timer.start()
 

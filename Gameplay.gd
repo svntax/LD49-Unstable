@@ -16,9 +16,11 @@ onready var game_win_menu = $UI/CenterContainer/GameWinMenu
 onready var game_over_menu = $UI/CenterContainer/GameOverMenu
 onready var pause_menu = $UI/CenterContainer/PauseMenu
 onready var animation_player = $AnimationPlayer
+onready var text_animation_player = $TextAnimationPlayer
 onready var score_label = $UI/ScoreLabel
 onready var player = $Player
 onready var warp_point = $WarpPoint
+onready var warning_label = $UI/Warning
 
 onready var score = 0
 
@@ -27,6 +29,7 @@ func _ready():
 	game_win_menu.hide()
 	game_over_menu.hide()
 	pause_menu.hide()
+	warning_label.hide()
 	set_score(0)
 	randomize_player_spawn()
 	generate_asteroid_belt()
@@ -76,7 +79,7 @@ func generate_asteroid_belt():
 	
 	# Outer belt, sparse, big asteroids only
 	for i in range(0, 360, 20):
-		if randf() <= 0.5:
+		if randf() <= 0.3:
 			continue
 		var choice = randi() % BIG_ASTEROIDS.size()
 		var asteroid = BIG_ASTEROIDS[choice].instance()
@@ -113,3 +116,11 @@ func _on_Player_died():
 
 func _on_Player_escaped():
 	game_win()
+
+func _on_Star_unstable():
+	warning_label.show()
+	text_animation_player.play("warning")
+
+func _on_Star_exploded():
+	text_animation_player.queue("black_hole_warning")
+	warning_label.set_text("A BLACK HOLE HAS FORMED!")
