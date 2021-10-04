@@ -2,6 +2,8 @@ extends Node2D
 
 const GROW_RATE = 0.1
 
+export (bool) var black_hole_disabled = false
+
 onready var size = 1
 onready var pull_magnitude = 2
 
@@ -12,6 +14,9 @@ func get_pull_magnitude() -> float:
 	return size * pull_magnitude
 
 func _physics_process(delta):
+	if black_hole_disabled:
+		return
+	
 	scale.x += GROW_RATE * delta
 	scale.y += GROW_RATE * delta
 

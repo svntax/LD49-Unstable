@@ -38,19 +38,19 @@ func _process(delta):
 		turn_velocity = 0
 		var turning_left = false
 		var turning_right = false
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("move_left"):
 			turn_velocity += -TURN_SPEED * delta
 			fire_top_left.visible = true
 			fire_bottom_right.visible = true
 			turning_left = true
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("ui_right") or Input.is_action_pressed("move_right"):
 			turn_velocity += TURN_SPEED * delta
 			fire_top_right.visible = true
 			fire_bottom_left.visible = true
 			turning_right = true
 		
 		acceleration = Vector2.ZERO
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("ui_up") or Input.is_action_pressed("move_up"):
 			acceleration += Vector2(flying_speed, 0).rotated(rotation)
 			fire_bottom_left.show()
 			fire_bottom_right.show()
@@ -59,7 +59,7 @@ func _process(delta):
 				fire_bottom_right.hide()
 			if not turning_right:
 				fire_bottom_left.hide()
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("ui_down") or Input.is_action_pressed("move_down"):
 			fire_top_left.show()
 			fire_top_right.show()
 			acceleration -= Vector2(flying_speed, 0).rotated(rotation)

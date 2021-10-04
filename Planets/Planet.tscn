@@ -7,10 +7,10 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 111.0
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.415686, 0.745098, 0.188235, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.67451, 0.196078, 0.196078, 1 )
 
 [node name="Planet" type="KinematicBody2D"]
@@ -45,8 +45,8 @@ margin_top = -3.0
 margin_right = 35.0
 margin_bottom = 3.0
 mouse_filter = 2
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 max_value = 200.0
 value = 200.0
 percent_visible = false

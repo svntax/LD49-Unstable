@@ -1,0 +1,252 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://InstructionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://space_background.png" type="Texture" id=2]
+[ext_resource path="res://UI/ButtonFlatBlue.tres" type="StyleBox" id=3]
+[ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Asteroids/small_asteroid_01.png" type="Texture" id=5]
+[ext_resource path="res://Asteroids/big_asteroid_01.png" type="Texture" id=6]
+[ext_resource path="res://Planets/planet_01.png" type="Texture" id=7]
+[ext_resource path="res://Planets/planet_02.png" type="Texture" id=8]
+[ext_resource path="res://Star/sun.png" type="Texture" id=9]
+[ext_resource path="res://BlackHole/BlackHole.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Player/player_ship.png" type="Texture" id=11]
+[ext_resource path="res://Player/WarpPoint.tscn" type="PackedScene" id=12]
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="InstructionsMenu" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 576.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 384.0
+margin_top = 464.0
+margin_right = 640.0
+margin_bottom = 528.0
+rect_min_size = Vector2( 256, 64 )
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = SubResource( 2 )
+text = "Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+margin_left = 192.0
+margin_top = 64.0
+margin_right = 832.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 1 )
+text = "Instructions"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page00" type="Node2D" parent="."]
+visible = false
+
+[node name="Controls" type="Label" parent="Page00"]
+margin_left = 384.0
+margin_top = 176.0
+margin_right = 704.0
+margin_bottom = 208.0
+custom_fonts/font = SubResource( 3 )
+text = "WASD/Arrow keys to move"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls2" type="Label" parent="Page00"]
+margin_left = 192.0
+margin_top = 312.0
+margin_right = 832.0
+margin_bottom = 379.0
+custom_fonts/font = SubResource( 3 )
+text = "Spacebar to toggle the minimap on/off"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls3" type="Label" parent="Page00"]
+margin_left = 192.0
+margin_top = 384.0
+margin_right = 832.0
+margin_bottom = 451.0
+custom_fonts/font = SubResource( 3 )
+text = "Esc to pause the game"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls4" type="Label" parent="Page00"]
+margin_left = 192.0
+margin_top = 240.0
+margin_right = 832.0
+margin_bottom = 307.0
+custom_fonts/font = SubResource( 3 )
+text = "Left click to shoot"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Page00"]
+position = Vector2( 328, 192 )
+texture = ExtResource( 11 )
+
+[node name="Page01" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SmallAsteroid" type="Sprite" parent="Page01"]
+position = Vector2( 124, 200 )
+texture = ExtResource( 5 )
+
+[node name="SmallAsteroidGuide" type="Label" parent="Page01"]
+margin_left = 232.0
+margin_top = 168.0
+margin_right = 424.0
+margin_bottom = 264.0
+custom_fonts/font = SubResource( 3 )
+text = "Small asteroids = 10 points"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BigAsteroid" type="Sprite" parent="Page01"]
+position = Vector2( 120, 360 )
+texture = ExtResource( 6 )
+
+[node name="BigAsteroidGuide" type="Label" parent="Page01"]
+margin_left = 232.0
+margin_top = 320.0
+margin_right = 400.0
+margin_bottom = 424.0
+custom_fonts/font = SubResource( 3 )
+text = "Big asteroids = 100 points"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Planet" type="Sprite" parent="Page01"]
+position = Vector2( 584, 216 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+
+[node name="Planet2" type="Sprite" parent="Page01"]
+position = Vector2( 712, 216 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+
+[node name="PlanetsGuide" type="Label" parent="Page01"]
+margin_left = 792.0
+margin_top = 168.0
+margin_right = 992.0
+margin_bottom = 280.0
+custom_fonts/font = SubResource( 3 )
+text = "Planets = 500 points"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WarpPoint" parent="Page01" instance=ExtResource( 12 )]
+position = Vector2( 568, 360 )
+
+[node name="UI" parent="Page01/WarpPoint" index="4"]
+visible = false
+
+[node name="WarpGuide" type="Label" parent="Page01"]
+margin_left = 640.0
+margin_top = 336.0
+margin_right = 992.0
+margin_bottom = 408.0
+custom_fonts/font = SubResource( 3 )
+text = "Use the warp to escape and double your points!"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page02" type="Node2D" parent="."]
+visible = false
+
+[node name="Sun" type="Sprite" parent="Page02"]
+position = Vector2( 152, 288 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 9 )
+
+[node name="SunGuide" type="Label" parent="Page02"]
+margin_left = 280.0
+margin_top = 192.0
+margin_right = 536.0
+margin_bottom = 399.0
+custom_fonts/font = SubResource( 3 )
+text = "Refuel by draining the sun.
+
+Drain too much and
+the sun will become
+unstable!"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackHole" parent="Page02" instance=ExtResource( 10 )]
+position = Vector2( 640, 288 )
+black_hole_disabled = true
+
+[node name="BlackHoleGuide" type="Label" parent="Page02"]
+margin_left = 728.0
+margin_top = 192.0
+margin_right = 1000.0
+margin_bottom = 399.0
+custom_fonts/font = SubResource( 3 )
+text = "The sun will eventually explode and turn into a black hole.
+
+Escape before it's too late!"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+
+[editable path="Page01/WarpPoint"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://space_background.png" type="Texture" id=1]
 [ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://UI/ButtonFlatBlue.tres" type="StyleBox" id=4]
+[ext_resource path="res://Star/sun.png" type="Texture" id=5]
+[ext_resource path="res://Asteroids/small_asteroid_01.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -30,26 +32,41 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 2
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
+[node name="Decorations" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SunDecoration" type="Sprite" parent="Decorations"]
+position = Vector2( 512, 296 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
+
+[node name="Asteroid" type="Sprite" parent="Decorations"]
+position = Vector2( 144, 448 )
+texture = ExtResource( 6 )
+
 [node name="Title" type="Label" parent="."]
 margin_left = 192.0
-margin_top = 72.0
+margin_top = 64.0
 margin_right = 832.0
-margin_bottom = 136.0
+margin_bottom = 128.0
 custom_fonts/font = SubResource( 1 )
-text = "GAME TITLE HERE"
+text = "Solar Disturbance"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StartButton" type="Button" parent="."]
-margin_left = 384.0
-margin_top = 240.0
-margin_right = 640.0
-margin_bottom = 304.0
+margin_left = 88.0
+margin_top = 256.0
+margin_right = 344.0
+margin_bottom = 320.0
 rect_min_size = Vector2( 256, 64 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
@@ -62,10 +79,10 @@ __meta__ = {
 }
 
 [node name="ExitButton" type="Button" parent="."]
-margin_left = 384.0
-margin_top = 368.0
-margin_right = 640.0
-margin_bottom = 432.0
+margin_left = 680.0
+margin_top = 256.0
+margin_right = 936.0
+margin_bottom = 320.0
 rect_min_size = Vector2( 256, 64 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
@@ -79,11 +96,11 @@ __meta__ = {
 
 [node name="HighScore" type="Label" parent="."]
 margin_left = 128.0
-margin_top = 496.0
+margin_top = 480.0
 margin_right = 896.0
-margin_bottom = 528.0
+margin_bottom = 512.0
 custom_fonts/font = SubResource( 3 )
-text = "High Score: 12345"
+text = "High Score: 0"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
