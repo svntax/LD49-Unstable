@@ -1,7 +1,8 @@
 extends Node2D
 
 const BIG_ASTEROIDS = [
-	preload("res://Asteroids/BigAsteroid01.tscn")
+	preload("res://Asteroids/BigAsteroid01.tscn"),
+	preload("res://Asteroids/BigAsteroid02.tscn")
 ]
 
 const SMALL_ASTEROIDS = [

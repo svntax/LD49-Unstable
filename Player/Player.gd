@@ -75,6 +75,11 @@ func _process(delta):
 				fire_top_right.hide()
 			if not turning_left:
 				fire_top_left.hide()
+	else:
+		fire_top_left.hide()
+		fire_top_right.hide()
+		fire_bottom_left.hide()
+		fire_bottom_right.hide()
 	
 	# Lose fuel when moving or turning
 	if not (laser.is_colliding() and laser.get_collider() is Star):
