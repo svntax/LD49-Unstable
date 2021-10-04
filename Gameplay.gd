@@ -8,7 +8,8 @@ const SMALL_ASTEROIDS = [
 	preload("res://Asteroids/SmallAsteroid01.tscn")
 ]
 
-const ASTEROID_BELT_RADIUS = 3000
+const OUTER_BELT_RADIUS = 4500
+const MIDDLE_BELT_RADIUS = 3000
 const INNER_BELT_RADIUS = 1200
 
 onready var game_win_menu = $UI/CenterContainer/GameWinMenu
@@ -33,7 +34,7 @@ func _ready():
 # Spawn next to the middle asteroid belt at a random angle
 func randomize_player_spawn():
 	var angle = rand_range(0, 360)
-	var radius = ASTEROID_BELT_RADIUS - 400
+	var radius = MIDDLE_BELT_RADIUS - 400
 	var spawn_pos = Vector2(radius, 0).rotated(deg2rad(angle))
 	player.global_position = spawn_pos
 	warp_point.global_position = spawn_pos
@@ -53,12 +54,13 @@ func generate_asteroid_belt():
 			else:
 				choice = randi() % SMALL_ASTEROIDS.size()
 				asteroid = SMALL_ASTEROIDS[choice].instance()
-			var radius = ASTEROID_BELT_RADIUS + rand_range(-128, 128) + j * 256
+			var radius = MIDDLE_BELT_RADIUS + rand_range(-128, 128) + j * 256
 			var angle = deg2rad(i) + j * 17
 			var spawn_pos = Vector2(radius, 0).rotated(deg2rad(i))
 			spawn_pos += Vector2(rand_range(-128, 128), rand_range(-128, 128))
 			asteroid.global_position = spawn_pos
 			add_child(asteroid)
+	
 	# Inner belt, more sparse
 	for i in range(0, 360, 20):
 		if randf() <= 0.4:
@@ -66,6 +68,19 @@ func generate_asteroid_belt():
 		var choice = randi() % SMALL_ASTEROIDS.size()
 		var asteroid = SMALL_ASTEROIDS[choice].instance()
 		var radius = INNER_BELT_RADIUS + rand_range(-64, 64)
+		var angle = deg2rad(i) + rand_range(-8, 8)
+		var spawn_pos = Vector2(radius, 0).rotated(deg2rad(i))
+		spawn_pos += Vector2(rand_range(-128, 128), rand_range(-128, 128))
+		asteroid.global_position = spawn_pos
+		add_child(asteroid)
+	
+	# Outer belt, sparse, big asteroids only
+	for i in range(0, 360, 20):
+		if randf() <= 0.5:
+			continue
+		var choice = randi() % BIG_ASTEROIDS.size()
+		var asteroid = BIG_ASTEROIDS[choice].instance()
+		var radius = OUTER_BELT_RADIUS + rand_range(-64, 64)
 		var angle = deg2rad(i) + rand_range(-8, 8)
 		var spawn_pos = Vector2(radius, 0).rotated(deg2rad(i))
 		spawn_pos += Vector2(rand_range(-128, 128), rand_range(-128, 128))

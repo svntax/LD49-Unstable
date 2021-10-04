@@ -133,9 +133,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Node2D" type="Node2D" parent="UI"]
+position = Vector2( 824, 32 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/game_over = SubResource( 3 )
 anims/game_win = SubResource( 4 )
+
+[node name="InnerBelt" type="Position2D" parent="."]
+position = Vector2( 1200, 0 )
+
+[node name="MiddleBelt" type="Position2D" parent="."]
+position = Vector2( 3000, 0 )
+
+[node name="OuterBelt" type="Position2D" parent="."]
+position = Vector2( 4500, 0 )
+
+[node name="Edge" type="Position2D" parent="."]
+position = Vector2( 6000, 0 )
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="escaped" from="Player" to="." method="_on_Player_escaped"]

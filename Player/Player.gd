@@ -63,7 +63,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	if state == States.NORMAL:
-		position += velocity * delta
+		var new_position = position + velocity * delta
+		new_position.x = clamp(new_position.x, -6000, 6000)
+		new_position.y = clamp(new_position.y, -6000, 6000)
+		position = new_position
 		velocity += acceleration + pull_force
 		rotate(deg2rad(turn_velocity))
 		
