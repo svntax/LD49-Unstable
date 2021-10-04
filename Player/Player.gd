@@ -15,6 +15,10 @@ signal died()
 
 onready var fuel_bar = $UI/FuelBar
 onready var laser = $Laser
+onready var fire_top_left = $Sprite/FireTopLeft
+onready var fire_top_right = $Sprite/FireTopRight
+onready var fire_bottom_left = $Sprite/FireBottomLeft
+onready var fire_bottom_right = $Sprite/FireBottomRight
 
 onready var velocity = Vector2()
 onready var acceleration = Vector2()
@@ -32,16 +36,38 @@ func _process(delta):
 	acceleration = Vector2.ZERO
 	if _can_move():
 		turn_velocity = 0
+		var turning_left = false
+		var turning_right = false
 		if Input.is_action_pressed("ui_left"):
 			turn_velocity += -TURN_SPEED * delta
+			fire_top_left.visible = true
+			fire_bottom_right.visible = true
+			turning_left = true
 		if Input.is_action_pressed("ui_right"):
 			turn_velocity += TURN_SPEED * delta
+			fire_top_right.visible = true
+			fire_bottom_left.visible = true
+			turning_right = true
 		
 		acceleration = Vector2.ZERO
 		if Input.is_action_pressed("ui_up"):
 			acceleration += Vector2(flying_speed, 0).rotated(rotation)
+			fire_bottom_left.show()
+			fire_bottom_right.show()
+		else:
+			if not turning_left:
+				fire_bottom_right.hide()
+			if not turning_right:
+				fire_bottom_left.hide()
 		if Input.is_action_pressed("ui_down"):
+			fire_top_left.show()
+			fire_top_right.show()
 			acceleration -= Vector2(flying_speed, 0).rotated(rotation)
+		else:
+			if not turning_right:
+				fire_top_right.hide()
+			if not turning_left:
+				fire_top_left.hide()
 	
 	# Lose fuel when moving or turning
 	if not (laser.is_colliding() and laser.get_collider() is Star):

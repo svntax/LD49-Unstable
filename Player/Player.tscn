@@ -1,12 +1,10 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Player/player_ship.png" type="Texture" id=2]
 [ext_resource path="res://Player/Laser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=4]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
+[ext_resource path="res://Player/fire_thrust.png" type="Texture" id=5]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.87451, 0.443137, 0.14902, 1 )
@@ -35,9 +33,32 @@ font_data = ExtResource( 4 )
 collision_layer = 4
 script = ExtResource( 1 )
 
-[node name="icon" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 rotation = 1.57079
 texture = ExtResource( 2 )
+
+[node name="FireTopLeft" type="Sprite" parent="Sprite"]
+position = Vector2( -20, -6.00013 )
+rotation = -3.14159
+texture = ExtResource( 5 )
+
+[node name="FireTopRight" type="Sprite" parent="Sprite"]
+position = Vector2( 20, -5.99987 )
+rotation = -3.14159
+texture = ExtResource( 5 )
+
+[node name="FireBottomLeft" type="Sprite" parent="Sprite"]
+position = Vector2( -15.5, 17 )
+rotation = -6.28319
+texture = ExtResource( 5 )
+
+[node name="FireBottomRight" type="Sprite" parent="Sprite"]
+position = Vector2( 15.5, 17 )
+rotation = -6.28319
+texture = ExtResource( 5 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 22, 0, 12, -4, 4, -12, 2, -24, -8, -22, -14, -18, -14, -12, -22, -2, -22, 2, -14, 10, -14, 18, -8, 22, 2, 24, 4, 12, 12, 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -45,9 +66,6 @@ limit_left = -6000
 limit_top = -6000
 limit_right = 6000
 limit_bottom = 6000
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
 
 [node name="Laser" parent="." instance=ExtResource( 3 )]
 

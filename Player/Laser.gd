@@ -65,14 +65,14 @@ func set_is_casting(cast: bool) -> void:
 
 func appear() -> void:
 	tween.stop_all()
-	tween.interpolate_property(line, "width", 0, 10.0, 0.2)
-	tween.interpolate_property(start_sprite, "scale", Vector2.ZERO, Vector2(1, 1), 0.2)
-	tween.interpolate_property(end_sprite, "scale", Vector2.ZERO, Vector2(1, 1), 0.2)
+	tween.interpolate_property(line, "width", 0, 6.0, 0.2)
+	tween.interpolate_property(start_sprite, "scale", Vector2.ZERO, Vector2(0.8, 0.8), 0.2)
+	tween.interpolate_property(end_sprite, "scale", Vector2.ZERO, Vector2(0.8, 0.8), 0.2)
 	tween.start()
 
 func disappear() -> void:
 	tween.stop_all()
-	tween.interpolate_property(line, "width", 10.0, 0, 0.1)
-	tween.interpolate_property(start_sprite, "scale", Vector2(1, 1), Vector2.ZERO, 0.1)
-	tween.interpolate_property(end_sprite, "scale", Vector2(1, 1), Vector2.ZERO, 0.1)
+	tween.interpolate_property(line, "width", 6.0, 0, 0.1)
+	tween.interpolate_property(start_sprite, "scale", Vector2(0.8, 0.8), Vector2.ZERO, 0.1)
+	tween.interpolate_property(end_sprite, "scale", Vector2(0.8, 0.8), Vector2.ZERO, 0.1)
 	tween.start()
