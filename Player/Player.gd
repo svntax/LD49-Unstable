@@ -21,7 +21,10 @@ onready var fire_bottom_left = $Sprite/FireBottomLeft
 onready var fire_bottom_right = $Sprite/FireBottomRight
 onready var thrust_sound = $ThrustSound
 onready var explode_sound = $ExplodeSound
+onready var asteroid_explode_sound = $AsteroidExplodeSound
 onready var warp_sound = $WarpSound
+onready var laser_sound = $LaserFireSound
+onready var mining_sound = $MiningSound
 
 onready var velocity = Vector2()
 onready var acceleration = Vector2()
@@ -84,6 +87,21 @@ func _process(delta):
 	else:
 		if thrust_sound.playing:
 			thrust_sound.playing = false
+	
+	if laser.is_casting:
+		if not laser_sound.playing:
+			laser_sound.playing = true
+		if laser.is_colliding() and not (laser.get_collider() is Star):
+			if not mining_sound.playing:
+				mining_sound.playing = true
+		else:
+			if mining_sound.playing:
+				mining_sound.playing = false
+	else:
+		if laser_sound.playing:
+			laser_sound.playing = false
+		if mining_sound.playing:
+			mining_sound.playing = false
 	
 	if state == States.NORMAL:
 		# Slowly pulled towards black holes

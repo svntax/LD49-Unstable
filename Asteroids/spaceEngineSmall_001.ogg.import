@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/spaceEngineSmall_001.ogg-e2de0f0eca5c86a478e8d60c39f2cbbb.oggstr"
+
+[deps]
+
+source_file="res://Asteroids/spaceEngineSmall_001.ogg"
+dest_files=[ "res://.import/spaceEngineSmall_001.ogg-e2de0f0eca5c86a478e8d60c39f2cbbb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -39,6 +39,8 @@ func lose_health(delta):
 	health_bar.value -= 20 * delta
 	if health_bar.value <= 0:
 		get_tree().root.get_node("Gameplay").add_score(score_value)
+		# Hacky way to play asteroid explosion sound
+		get_tree().root.get_node("Gameplay/Player").asteroid_explode_sound.play()
 		queue_free()
 
 func consume() -> void:

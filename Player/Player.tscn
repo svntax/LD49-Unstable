@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player_ship.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Player/explosionCrunch_000.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Player/laser_particle.png" type="Texture" id=8]
 [ext_resource path="res://Player/laserSmall_002.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Player/spaceEngine_002.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Asteroids/spaceEngineSmall_001.ogg" type="AudioStream" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.87451, 0.443137, 0.14902, 1 )
@@ -197,6 +199,11 @@ volume_db = -20.0
 stream = ExtResource( 7 )
 volume_db = -10.0
 
+[node name="AsteroidExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -10.0
+pitch_scale = 2.18
+
 [node name="Warp" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 0.2, 0.2 )
@@ -215,6 +222,15 @@ default_color = Color( 1, 1, 1, 1 )
 [node name="WarpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 volume_db = -12.0
+
+[node name="LaserFireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -12.0
+
+[node name="MiningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -10.0
+pitch_scale = 1.2
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
