@@ -8,7 +8,9 @@ onready var size = 1
 onready var pull_magnitude = 2
 
 func _ready():
-	$GrowTimer.start()
+	if not black_hole_disabled:
+		$RumbleSound.play()
+		$GrowTimer.start()
 
 func get_pull_magnitude() -> float:
 	return size * pull_magnitude
@@ -26,7 +28,9 @@ func _on_GrowTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.has_method("consume"):
 		area.consume()
+		$ConsumedSound.play()
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("consume"):
 		body.consume()
+		$ConsumedSound.play()

@@ -1,15 +1,19 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player_ship.png" type="Texture" id=2]
 [ext_resource path="res://Player/Laser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Player/fire_thrust.png" type="Texture" id=5]
+[ext_resource path="res://Player/thrusterFire_000.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Player/explosionCrunch_000.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Player/laser_particle.png" type="Texture" id=8]
+[ext_resource path="res://Player/laserSmall_002.ogg" type="AudioStream" id=9]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.87451, 0.443137, 0.14902, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 4
 border_width_top = 4
@@ -21,13 +25,101 @@ expand_margin_right = 4.0
 expand_margin_top = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 4 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=5]
-size = 32
-font_data = ExtResource( 4 )
+[sub_resource type="Animation" id=5]
+resource_name = "warp"
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Warp:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Warp:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.28, 0.4, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 2, 2 ), Vector2( 2, 2 ), Vector2( 0.2, 0.2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WarpLine:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WarpLine:width")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.2, 0.28, 0.4, 0.46 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 16.0, 16.0, 1.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("WarpSound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.24 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.16 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [node name="Player" type="Area2D"]
 collision_layer = 4
@@ -58,6 +150,7 @@ rotation = -6.28319
 texture = ExtResource( 5 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 22, 0, 12, -4, 4, -12, 2, -24, -8, -22, -14, -18, -14, -12, -22, -2, -22, 2, -14, 10, -14, 18, -8, 22, 2, 24, 4, 12, 12, 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -77,9 +170,9 @@ margin_top = 504.0
 margin_right = 320.0
 margin_bottom = 544.0
 mouse_filter = 2
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
-custom_fonts/font = SubResource( 4 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 value = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -90,10 +183,38 @@ margin_left = 32.0
 margin_top = 456.0
 margin_right = 320.0
 margin_bottom = 488.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Fuel"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ThrustSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -10.0
+
+[node name="Warp" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/warp = SubResource( 5 )
+
+[node name="WarpLine" type="Line2D" parent="."]
+visible = false
+position = Vector2( 0, 2 )
+points = PoolVector2Array( 0, -2, 0, -322 )
+width = 0.999997
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="WarpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -12.0
+
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://space_background.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://UI/GameOverMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Planets/Planet.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/EquipmentPro.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Star/explosionCrunch_004.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Player/WarpPoint.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/GameWinMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=11]
@@ -24,11 +25,11 @@ glow_bicubic_upscale = true
 size = 32
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 7 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "method"
 tracks/0/path = NodePath("UI/CenterContainer/GameOverMenu")
 tracks/0/interp = 1
@@ -44,8 +45,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "game_win"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "method"
 tracks/0/path = NodePath("UI/CenterContainer/GameWinMenu")
 tracks/0/interp = 1
@@ -61,7 +61,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "black_hole_warning"
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI/Warning:custom_colors/font_color")
@@ -76,8 +76,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "warning"
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI/Warning:custom_colors/font_color")
@@ -181,7 +180,7 @@ star_path = NodePath("../../Star")
 margin_left = 256.0
 margin_right = 768.0
 margin_bottom = 61.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "WARNING! UNSTABLE SUN!"
 align = 1
@@ -191,8 +190,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/game_over = SubResource( 3 )
-anims/game_win = SubResource( 4 )
+anims/game_over = SubResource( 4 )
+anims/game_win = SubResource( 5 )
 
 [node name="InnerBelt" type="Position2D" parent="."]
 position = Vector2( 1200, 0 )
@@ -207,8 +206,8 @@ position = Vector2( 4500, 0 )
 position = Vector2( 6000, 0 )
 
 [node name="TextAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/black_hole_warning = SubResource( 7 )
-anims/warning = SubResource( 6 )
+anims/black_hole_warning = SubResource( 6 )
+anims/warning = SubResource( 7 )
 
 [node name="Planet" parent="." instance=ExtResource( 6 )]
 position = Vector2( 848, -544 )
@@ -221,6 +220,10 @@ position = Vector2( 392, -816 )
 
 [node name="Sprite" parent="Planet2" index="0"]
 visible = false
+
+[node name="StarExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -8.0
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="escaped" from="Player" to="." method="_on_Player_escaped"]

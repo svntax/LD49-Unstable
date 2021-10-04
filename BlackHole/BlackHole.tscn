@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://BlackHole/BlackHole.gd" type="Script" id=1]
+[ext_resource path="res://BlackHole/spaceEngineLow_000.ogg" type="AudioStream" id=2]
+[ext_resource path="res://BlackHole/forceField_003.ogg" type="AudioStream" id=3]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0578231, 0.489796, 1 )
@@ -83,6 +85,15 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 6 )
+
+[node name="RumbleSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -6.0
+max_distance = 3500.0
+
+[node name="ConsumedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -4.0
 
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

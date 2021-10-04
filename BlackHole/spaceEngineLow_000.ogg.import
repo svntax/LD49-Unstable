@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/spaceEngineLow_000.ogg-44863286d090eb25ec2e751daca18d05.oggstr"
+
+[deps]
+
+source_file="res://BlackHole/spaceEngineLow_000.ogg"
+dest_files=[ "res://.import/spaceEngineLow_000.ogg-44863286d090eb25ec2e751daca18d05.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

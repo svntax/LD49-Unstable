@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/forceField_003.ogg-095d30f51e0d7c3750ae5b514925c5dd.oggstr"
+
+[deps]
+
+source_file="res://BlackHole/forceField_003.ogg"
+dest_files=[ "res://.import/forceField_003.ogg-095d30f51e0d7c3750ae5b514925c5dd.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

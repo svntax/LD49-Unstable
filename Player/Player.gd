@@ -19,6 +19,9 @@ onready var fire_top_left = $Sprite/FireTopLeft
 onready var fire_top_right = $Sprite/FireTopRight
 onready var fire_bottom_left = $Sprite/FireBottomLeft
 onready var fire_bottom_right = $Sprite/FireBottomRight
+onready var thrust_sound = $ThrustSound
+onready var explode_sound = $ExplodeSound
+onready var warp_sound = $WarpSound
 
 onready var velocity = Vector2()
 onready var acceleration = Vector2()
@@ -75,6 +78,13 @@ func _process(delta):
 			fuel -= FUEL_LOSS_RATE * delta
 			fuel_bar.value = fuel
 	
+	if acceleration != Vector2.ZERO or turn_velocity != 0:
+		if not thrust_sound.playing:
+			thrust_sound.playing = true
+	else:
+		if thrust_sound.playing:
+			thrust_sound.playing = false
+	
 	if state == States.NORMAL:
 		# Slowly pulled towards black holes
 		var net_force = Vector2.ZERO
@@ -126,10 +136,14 @@ func consume() -> void:
 
 func leave_level() -> void:
 	state = States.FINISHED
-	# TODO: warp out animation
-	hide()
-	emit_signal("escaped")
+	$AnimationPlayer.play("warp")
 
 func _on_Player_body_entered(body):
 	if body is Asteroid or body is Planet:
+		explode_sound.play()
 		die()
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "warp":
+		hide()
+		emit_signal("escaped")

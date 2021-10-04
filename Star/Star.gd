@@ -50,6 +50,10 @@ func _on_ShakeTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.has_method("consume"):
 		area.consume()
+		# Hacky way to check if it's the player, and if so, play the explosion sound
+		var explode_sound = area.get_node_or_null("ExplodeSound")
+		if explode_sound != null:
+			explode_sound.play()
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("consume"):

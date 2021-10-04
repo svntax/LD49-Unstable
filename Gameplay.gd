@@ -26,6 +26,7 @@ onready var warp_point = $WarpPoint
 onready var planet_01 = $Planet
 onready var planet_02 = $Planet2
 onready var warning_label = $UI/Warning
+onready var star_explode_sound = $StarExplodeSound
 
 onready var score = 0
 
@@ -135,5 +136,6 @@ func _on_Star_unstable():
 	text_animation_player.play("warning")
 
 func _on_Star_exploded():
+	star_explode_sound.play()
 	text_animation_player.queue("black_hole_warning")
 	warning_label.set_text("A BLACK HOLE HAS FORMED!")
